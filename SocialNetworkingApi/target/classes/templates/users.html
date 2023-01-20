@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Location</th>
+            <th>View Posts</th>
+            <th>Delete User</th>
+        </tr>
+        <tr th:each=" user: ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.firstlname}"></td>
+            <td th:text="${user.lastname}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.location.name}"></td>
+            <td><a th:href="@{/post/user/{id}(id=${user.id})}"> view posts</a></td>
+            <td><a th:href="@{/user/delete/{id}(id=${user.id})}"> delete user</a></td>
+        </tr>
+    </table>
+
+    <br>
+    <br>
+    <h1><button onclick="render()">Add User</button></h1>
+    
+    <form class="postform" th:action="@{/user/add}" method="post" th:object="${user}">
+        <input type="text" name="id" th:value="${user.id}" placeholder="Enter user Id">
+        <br>
+        <input type="text" name="firstlname" th:value="${user.firstlname}" placeholder="Enter first name">
+        <br>
+        <input type="text" name="lastname" th:value="${user.lastname}" placeholder="Enter last name">
+        <br>
+        <input type="text" name="email" th:value="${user.email}" placeholder="Enter Email Id">
+        <br>
+        <input type="text" name="location_id" placeholder="Enter location Id">
+        <br>
+        <button onclick="render2()" type="submit">Add</button>
+    </form>
+    <script>
+        var bt = document.getElementsByClassName("postform")[0];
+        bt.style.display = "none";
+        function render(){
+            bt.style.display="block";
+        }
+        function render2(){
+            bt.style.display="none";
+        }
+    </script>
+
+
+</body>
+</html>

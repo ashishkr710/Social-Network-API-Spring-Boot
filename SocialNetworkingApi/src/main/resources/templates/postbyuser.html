@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts of a User</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Post Date</th>
+            <th>PostDetail</th>
+            <th>Delete Post</th>
+        </tr>
+        <tr th:each=" post: ${posts}">
+            <td th:text="${post.id}"></td>
+            <td th:text="${post.postdate}"></td>
+            <td th:text="${post.details}"></td>
+            <td>
+                <a th:href="@{/post/delete/{id}(id=${post.id})}">Delete Post</a>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    <h1><button onclick="render()">Add Post</button></h1>
+    <form class="postform" method="post" th:action="@{/post}" th:object="${post}">
+        <input type="text" name="id" th:value="${post.id}" placeholder="Enter post Id">
+        <input type="date" name="postdate" th:value="${post.postdate}" placeholder="Enter postdate">
+        <input type="text" name="details" th:value="${post.details}" placeholder="Enter post details">
+        <input type="text" name="userid" placeholder="Enter user id">
+        <button onclick="render2()" type="submit">Add</button>
+    </form>
+    <script>
+        var bt = document.getElementsByClassName("postform")[0];
+        bt.style.display = "none";
+        function render(){
+            bt.style.display="block";
+        }
+        function render2(){
+            bt.style.display="none";
+        }
+    </script>
+</body>
+</html>
